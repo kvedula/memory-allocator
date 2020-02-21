@@ -43,19 +43,21 @@ void initializeHeap()
 
 int getBestFit(size_t bytes)
 {
-    int bestIndex = INT_MAX;
+    int bestIndex;
+    int smallestBlock = INT_MAX;
     int i;
     for (i = 0; i < HEAP_SIZE; i++)
     {
         if (heap[i].header.isAllocated == 0 && heap[i].header.size != 0)
         {
             if (heap[i].header.size >= bytes
-            && heap[i].header.size < bestIndex)
+            && heap[i].header.size < smallestBlock)
             {
-                bestIndex = i;
+                smallestBlock = i;
             }
         }
     }
+    bestIndex = smallestBlock;
     return bestIndex;
 }
 
