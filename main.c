@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #define HEAP_SIZE 127
 
@@ -42,13 +43,14 @@ void initializeHeap()
 
 int getBestFit(size_t bytes)
 {
-    int bestIndex;
+    int bestIndex = INT_MAX;
     int i;
     for (i = 0; i < HEAP_SIZE; i++)
     {
         if (heap[i].header.isAllocated == 0 && heap[i].header.size != 0)
         {
-            if (heap[i].header.size >= bytes)
+            if (heap[i].header.size >= bytes
+            && heap[i].header.size < bestIndex)
             {
                 bestIndex = i;
             }
